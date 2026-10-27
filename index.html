@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>NurseFlow | إدارة التمريض</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span>✚</span></div>
+        <div><strong>NurseFlow</strong><small id="brandSubtitle">نظام إدارة التمريض</small></div>
+      </div>
+      <div class="hospital-pill"><span class="pulse-dot"></span><span data-i18n="demo">بيئة تجريبية</span></div>
+      <nav class="nav-menu" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">▦</span><span data-i18n="dashboard">الرئيسية</span></button>
+        <button class="nav-item" data-page="tasks"><span class="nav-icon">☑</span><span data-i18n="tasks">المهام</span><span class="nav-count" id="taskNavCount">8</span></button>
+        <button class="nav-item" data-page="patients"><span class="nav-icon">♧</span><span data-i18n="patients">المرضى</span></button>
+        <button class="nav-item" data-page="shifts"><span class="nav-icon">◷</span><span data-i18n="shifts">المناوبات</span></button>
+        <button class="nav-item" data-page="handover"><span class="nav-icon">⇄</span><span data-i18n="handover">تسليم المناوبة</span></button>
+        <button class="nav-item" data-page="messages"><span class="nav-icon">✉</span><span data-i18n="messages">الرسائل</span><span class="unread-dot"></span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="support-card"><div class="support-icon">♡</div><strong data-i18n="needHelp">هل تحتاج إلى مساعدة؟</strong><p data-i18n="supportText">هذا نموذج أولي لمشروع التخرج.</p><button id="aboutBtn" class="text-button" data-i18n="aboutProject">عن المشروع ←</button></div>
+        <div class="profile-mini"><div class="avatar">AM</div><div class="profile-text"><strong id="sideUser">أمينة محمد</strong><small data-i18n="nurse">ممرضة</small></div><button class="icon-button" id="logoutBtn" title="Logout">↪</button></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="menuBtn" aria-label="Open menu">☰</button>
+        <div class="breadcrumb"><span data-i18n="workspace">مساحة العمل</span><span class="crumb-slash">/</span><strong id="pageTitle">الرئيسية</strong></div>
+        <div class="top-actions">
+          <label class="search-box"><span>⌕</span><input id="globalSearch" type="search" placeholder="ابحث عن مريض أو مهمة..." data-i18n-placeholder="searchPlaceholder" /></label>
+          <button class="icon-button notification-btn" id="notifyBtn" title="Notifications">♧<i></i></button>
+          <button class="lang-button" id="langBtn">EN</button>
+          <div class="top-avatar">AM</div>
+        </div>
+      </header>
+
+      <section class="page-content" id="pageContent">
+        <div class="welcome-row">
+          <div><div class="eyebrow"><span class="pulse-dot"></span><span data-i18n="goodMorning">صباح الخير</span></div><h1><span data-i18n="welcome">أهلًا بكِ، أمينة</span> <span class="wave">✦</span></h1><p data-i18n="welcomeSub">إليكِ ملخص عملكِ وما يحتاج إلى انتباهكِ اليوم.</p></div>
+          <button class="primary-button" id="quickTaskBtn"><span>＋</span><span data-i18n="addTask">إضافة مهمة</span></button>
+        </div>
+
+        <div class="notice-banner"><div class="notice-symbol">i</div><div><strong data-i18n="demoNoticeTitle">بيانات تجريبية</strong><p data-i18n="demoNotice">الأسماء والقياسات المعروضة افتراضية للتجربة وليست بيانات مرضى حقيقية.</p></div><button id="dismissNotice" class="notice-close" aria-label="Dismiss">×</button></div>
+
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span data-i18n="assignedPatients">المرضى المسؤول عنهم</span><span class="stat-icon violet">♧</span></div><div class="stat-bottom"><strong id="statPatients">8</strong><span class="stat-note" data-i18n="inYourCare">ضمن رعايتكِ</span></div><div class="stat-decoration decor-violet"></div></article>
+          <article class="stat-card"><div class="stat-top"><span data-i18n="todayTasks">مهام اليوم</span><span class="stat-icon blue">☷</span></div><div class="stat-bottom"><strong id="statTasks">8</strong><span class="stat-note"><span class="tiny-dot blue-dot"></span><span data-i18n="tasksAssigned">مهام مسندة</span></span></div><div class="stat-decoration decor-blue"></div></article>
+          <article class="stat-card"><div class="stat-top"><span data-i18n="completed">مهام مكتملة</span><span class="stat-icon green">✓</span></div><div class="stat-bottom"><strong id="statCompleted">5</strong><span class="stat-note" data-i18n="greatWork">عمل رائع اليوم</span></div><div class="progress-track"><span id="completionProgress" style="width:62%"></span></div></article>
+          <article class="stat-card"><div class="stat-top"><span data-i18n="upcoming">مهام قادمة</span><span class="stat-icon orange">◷</span></div><div class="stat-bottom"><strong id="statUpcoming">3</strong><span class="stat-note" data-i18n="needAttention">تحتاج إلى المتابعة</span></div><div class="stat-decoration decor-orange"></div></article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel tasks-panel">
+            <div class="panel-heading"><div><h2 data-i18n="priorityTasks">المهام ذات الأولوية</h2><p data-i18n="prioritySub">تابعي المهام المسندة إليكِ خلال المناوبة.</p></div><button class="link-button" data-goto="tasks" data-i18n="viewAll">عرض الكل ←</button></div>
+            <div class="task-list" id="dashboardTasks"></div>
+          </section>
+          <section class="panel shift-panel">
+            <div class="panel-heading"><div><h2 data-i18n="currentShift">المناوبة الحالية</h2><p data-i18n="shiftSub">الثلاثاء، 27 أكتوبر 2026</p></div><span class="live-badge"><span class="pulse-dot"></span><span data-i18n="inProgress">جارية</span></span></div>
+            <div class="shift-time"><div><span data-i18n="shiftStart">بداية المناوبة</span><strong>07:00 <small>AM</small></strong></div><div class="shift-divider"></div><div><span data-i18n="shiftEnd">نهاية المناوبة</span><strong>03:00 <small>PM</small></strong></div></div>
+            <div class="shift-progress-head"><span data-i18n="shiftProgress">تقدم المناوبة</span><strong>62%</strong></div><div class="progress-track large"><span style="width:62%"></span></div>
+            <div class="shift-footer"><div class="avatar-stack"><span>SA</span><span>MK</span><span>+2</span></div><div><strong data-i18n="teamOnDuty">الفريق المناوب</strong><small data-i18n="nursesOnShift">4 ممرضين في القسم</small></div><button class="round-arrow" data-goto="shifts">↗</button></div>
+          </section>
+        </div>
+
+        <div class="content-grid bottom-grid">
+          <section class="panel patients-panel">
+            <div class="panel-heading"><div><h2 data-i18n="patientOverview">نظرة عامة على المرضى</h2><p data-i18n="patientSub">آخر المرضى الذين تمت متابعتهم.</p></div><button class="link-button" data-goto="patients" data-i18n="viewAll">عرض الكل ←</button></div>
+            <div class="patient-table-wrap"><table><thead><tr><th data-i18n="patient">المريض</th><th data-i18n="room">الغرفة</th><th data-i18n="lastVitals">آخر قياس</th><th data-i18n="status">الحالة</th></tr></thead><tbody id="dashboardPatients"></tbody></table></div>
+          </section>
+          <section class="panel handover-card">
+            <div class="panel-heading"><div><h2 data-i18n="handoverTitle">تسليم المناوبة</h2><p data-i18n="handoverSub">لا تتركي مهمة دون توثيق.</p></div><span class="stat-icon teal">⇄</span></div>
+            <div class="handover-empty"><div class="handover-illustration">⇄</div><strong data-i18n="handoverReady">هل أنتِ مستعدة للتسليم؟</strong><p data-i18n="handoverDesc">راجعي المهام غير المكتملة وأضيفي ملاحظات للفريق التالي.</p><button class="secondary-button" data-goto="handover" data-i18n="prepareHandover">تجهيز التسليم</button></div>
+          </section>
+        </div>
+        <footer><span>© 2026 NurseFlow</span><span data-i18n="prototypeFooter">نموذج أولي تعليمي · لا يُستخدم لاتخاذ قرارات طبية</span></footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head"><div><span class="eyebrow" data-i18n="workspace">مساحة العمل</span><h2 id="modalTitle">إضافة مهمة جديدة</h2></div><button class="icon-button" id="closeModal" aria-label="Close">×</button></div>
+      <form id="taskForm">
+        <label><span data-i18n="taskName">اسم المهمة</span><input name="title" required placeholder="مثال: قياس العلامات الحيوية" /></label>
+        <div class="form-row"><label><span data-i18n="patient">المريض</span><select name="patient"><option>P-101</option><option>P-102</option><option>P-103</option><option>P-104</option></select></label><label><span data-i18n="dueTime">الوقت المطلوب</span><input name="time" type="time" value="11:00" required /></label></div>
+        <label><span data-i18n="priority">الأولوية</span><select name="priority"><option value="normal">عادية</option><option value="high">عالية</option><option value="low">منخفضة</option></select></label>
+        <label><span data-i18n="notes">ملاحظات</span><textarea name="notes" rows="3" placeholder="أضيفي تفاصيل عند الحاجة..."></textarea></label>
+        <div class="modal-actions"><button type="button" class="secondary-button" id="cancelModal" data-i18n="cancel">إلغاء</button><button type="submit" class="primary-button" data-i18n="saveTask">حفظ المهمة</button></div>
+      </form>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
